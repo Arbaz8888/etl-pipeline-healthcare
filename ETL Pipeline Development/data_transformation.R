@@ -26,5 +26,5 @@ transformed_data <- transformed_data %>%
 pivoted_data <- transformed_data %>%
   pivot_wider(names_from = AgeGroup, values_from = c(Avg_BMI, Count))
 
-# Save transformed data
+# Save transformed data to a CSV file
 write.csv(pivoted_data, 'transformed_data.csv', row.names = FALSE)
