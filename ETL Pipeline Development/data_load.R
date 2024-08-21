@@ -11,16 +11,16 @@ transformed_data <- read.csv('transformed_data.csv')
 transformed_data$Avg_BMI <- as.numeric(transformed_data$Avg_BMI)
 transformed_data$Count <- as.integer(transformed_data$Count)
 
-# Load data into the database
+# Write transformed data back to the SQLite database using SQL
 dbWriteTable(con, "transformed_patient_data", transformed_data, overwrite = TRUE, row.names = FALSE)
 
-# Indexing for faster queries
+# Create an index on the AgeGroup column for faster queries
 dbExecute(con, "CREATE INDEX idx_agegroup ON transformed_patient_data (AgeGroup)")
 
-# Check if data was loaded successfully
+# Verify if the data was loaded successfully
 if (dbExistsTable(con, "transformed_patient_data")) {
-  message("Data loaded successfully!")
+  message("Data loaded successfully into the database!")
 }
 
-# Close database connection
+# Close the database connection
 dbDisconnect(con)
